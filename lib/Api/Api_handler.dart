@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:citi_ryder/models/available_all_vehicle_model.dart';
 import 'package:citi_ryder/models/available_vehicles_model.dart';
+import 'package:citi_ryder/models/end_route_location_model.dart';
 // import 'package:citi_ryder/models/buy_pass_model.dart';
 import 'package:citi_ryder/models/get_location_route_model.dart';
 import 'package:citi_ryder/models/get_route_location_model.dart';
-import 'package:citi_ryder/models/login_response.dart';
+import 'package:citi_ryder/models/error_response_model.dart';
+import 'package:citi_ryder/models/start_route_location_model.dart';
 import 'package:http/http.dart' as http;
 
 class Apihandler{
@@ -110,4 +112,45 @@ class Apihandler{
       throw ErrorResponse(message: e.toString());
     }
   }
+
+
+  Future<GetStartRouteLocation> getStartRouteLocation()async{
+  try{
+    Uri url=Uri.parse("${baseUrl}/v1/api/RouteLocationApp/GetStartLocationDropdown");
+    http.Response response=await http.get(url,headers: headers);
+    print(response.body);
+    if(response.statusCode==200){
+      var res=getStartRouteModel(response.body);
+      return res;
+    }else{
+      throw ErrorResponse(message: "Error occured");
+    }
+  }
+  catch(e){
+    throw ErrorResponse(message: e.toString());
+  }
 }
+
+  Future<GetEndRouteLocation> getEndRouteLocation()async{
+  try{
+    Uri url=Uri.parse("${baseUrl}/v1/api/RouteLocationApp/GetEndLocationDropdown");
+    http.Response response=await http.get(url,headers: headers);
+    print(response.body);
+    if(response.statusCode==200){
+      var res=getEndRouteModel(response.body);
+      return res;
+    }else{
+      throw ErrorResponse(message: "Error occured");
+    }
+  }
+  catch(e){
+    throw ErrorResponse(message: e.toString());
+  }
+}
+
+
+}
+// https://localhost:7218/v1/api/RouteLocationApp/GetEndLocationDropdown
+
+
+// https://localhost:7218/v1/api/RouteLocationApp/GetStartLocationDropdown

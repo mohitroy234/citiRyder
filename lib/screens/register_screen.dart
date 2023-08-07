@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:citi_ryder/models/register_response.dart';
 import 'package:citi_ryder/screens/dashboard_screen.dart';
@@ -7,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:citi_ryder/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:citi_ryder/models/error_response_model.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);

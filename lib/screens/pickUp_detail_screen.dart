@@ -1,3 +1,4 @@
+import 'package:citi_ryder/Api/Api_handler.dart';
 import 'package:citi_ryder/screens/search_screen.dart';
 import 'package:citi_ryder/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,17 @@ class _PickUpState extends State<PickUp> {
 
     });
   }
+
+@override
+void initState(){
+  super.initState();
+  print("get start route location");
+  Apihandler().getStartRouteLocation();
+  
+  print("get end route location");
+  Apihandler().getEndRouteLocation();
+}
+
   @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;

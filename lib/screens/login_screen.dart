@@ -7,6 +7,7 @@ import 'package:citi_ryder/screens/register_screen.dart';
 import 'package:citi_ryder/utils/color.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:citi_ryder/models/error_response_model.dart';
 
 
 class login extends StatefulWidget {

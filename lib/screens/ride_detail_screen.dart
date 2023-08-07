@@ -1,4 +1,6 @@
 import 'package:citi_ryder/Api/Api_handler.dart';
+import 'package:citi_ryder/models/available_all_vehicle_model.dart';
+import 'package:citi_ryder/models/available_vehicles_model.dart';
 import 'package:citi_ryder/utils/color.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +13,23 @@ class MyRide extends StatefulWidget {
 
 class _MyRideState extends State<MyRide> {
 
+GetAllAvailableVehicles? getAllAvailableVehicles;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Apihandler().getAllAvailableVechiles();
+    // print("get all available vechiles");
+    // Apihandler().getAllAvailableVechiles();
+
+    // print("get available vechiles");
+    // Apihandler().getAvailableVechiles();
+    // init();
   }
+
+  // void init()async{
+  //   getAllAvailableVehicles=await Apihandler().getAllAvailableVechiles();
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +41,7 @@ class _MyRideState extends State<MyRide> {
         centerTitle: true,
         title:const Text("My Rides",style: TextStyle(color: Colors.white,fontSize: 16),),
       ),
-      body: Container(
+      body:Container(
         decoration: BoxDecoration(
             gradient: background_color
         ),
@@ -64,7 +77,34 @@ class _MyRideState extends State<MyRide> {
                     ),
                   )
                 ],
-              )
+              ),
+              const SizedBox(height: 20,),
+      FutureBuilder<AvailableVehicles>(
+        future: Apihandler().getAvailableVechiles(),
+        builder: (context,snapshot){
+              if(snapshot.connectionState == ConnectionState.waiting){
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          else if(snapshot.hasError){
+            Center(child: Text("An error occured ${snapshot.error}"),);
+          }
+          else if(snapshot.data == null){
+            Center(
+                child:Text("No products has been added yet")
+            );
+          }
+          return Expanded(
+            child: ListView.builder(
+              itemCount:snapshot.data!.items!.length ,
+                itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(snapshot.data!.items![index].routeName.toString()));
+            }),
+          );
+        }
+        )
             ],
           ),
         )

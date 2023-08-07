@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+GetEndRouteLocation getEndRouteModel(String str)=>GetEndRouteLocation.fromJson(jsonDecode(str));
 class GetEndRouteLocation {
   List<Items>? items;
   String? status;
@@ -6,17 +9,14 @@ class GetEndRouteLocation {
 
   GetEndRouteLocation({this.items, this.status, this.message, this.totalCount});
 
-  GetEndRouteLocation.fromJson(Map<String, dynamic> json) {
-    if (json['items'] != null) {
-      items = <Items>[];
-      json['items'].forEach((v) {
-        items!.add(new Items.fromJson(v));
-      });
-    }
-    status = json['status'];
-    message = json['message'];
-    totalCount = json['totalCount'];
-  }
+  factory GetEndRouteLocation.fromJson(Map<String, dynamic> json) {
+    return GetEndRouteLocation(
+    items: List<Items>.from(json['items'].map((e)=>Items.fromJson(e))),
+    status : json['status'],
+    message : json['message'],
+    totalCount :json['totalCount'],
+    );
+}
 }
 
 class Items {
@@ -25,8 +25,10 @@ class Items {
 
   Items({this.endLocation, this.id});
 
-  Items.fromJson(Map<String, dynamic> json) {
-    endLocation = json['endLocation'];
-    id = json['id'];
+  factory Items.fromJson(Map<String, dynamic> json) {
+    return Items(
+      endLocation : json['endLocation'],
+      id : json['id']
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:citi_ryder/Api/Api_handler.dart';
 import 'package:flutter/material.dart';
 
 class Routes extends StatefulWidget {
@@ -8,6 +9,17 @@ class Routes extends StatefulWidget {
 }
 
 class _RoutesState extends State<Routes> {
+dynamic res;
+  @override
+  void initState(){
+    super.initState();
+    print("get all route to location");
+    res=Apihandler().getAllLocationRoute();
+    print(res["items"]);
+    
+    print("get all route");
+    Apihandler().getRouteLocation();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +32,7 @@ class _RoutesState extends State<Routes> {
         centerTitle: true,
         title:const Text("Available routes",style: TextStyle(color: Colors.white,fontSize: 16),),
       ),
-      body: ListView(),
+      body:ListView(),
     );
   }
 }
